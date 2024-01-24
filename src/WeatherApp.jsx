@@ -1,38 +1,33 @@
-import { useState } from "react"
+import { useState } from "react";
+import { fetchWeatherData } from "./helpers/fetchWeatherData"; 
 
 export const WeatherApp = () => {
-  const urlBase = 'https://api.openweathermap.org/data/2.5/weather'
-
-  const API_KEY = '2b9dd790d9016d955b2122e4ff653739'
   const difKelvin = 273.15
-  const [ciudad, setCiudad] = useState('')
-  const [dataClima, setDataClima] = useState(null)
+  const API_KEY = '2b9dd790d9016d955b2122e4ff653739';
+  const [dataClima, setDataClima] = useState(null);
+  const [ciudad, setCiudad] = useState('');
 
   const handleCambioCiudad = (e) => {
-
-    setCiudad(e.target.value)
+    setCiudad(e.target.value);
     console.log(ciudad);
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (ciudad.length > 0) fetchClima()
-  }
+  };
 
-  const fetchClima = async () => {
-    try {
-      const response = await fetch(`${urlBase}?q=${ciudad}&appid=${API_KEY}`)
-      const data = await response.json()
-      setDataClima(data)
-      console.log(dataClima)
-    } catch {
-      (error) => {
-        console.error('Ocurrio un error ', error)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (ciudad.length > 0) {
+      try {
+        const weatherData = await fetchWeatherData(ciudad, API_KEY);
+        setDataClima(weatherData);
+        console.log(weatherData);
+      } catch (error) {
       }
-
     }
+  };
 
-  }
+
   return (
+
+    
     <div className="container">
       <h1>App de Clima</h1>
       <form onSubmit={handleSubmit}>
