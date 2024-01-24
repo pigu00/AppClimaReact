@@ -44,17 +44,10 @@ export const WeatherApp = () => {
 
         <div>
           <h2>{dataClima.name}</h2>
-
           <p>Temperatura: {parseInt(dataClima?.main?.temp - difKelvin)} °C</p>
           <p>Humedad {dataClima.main.humidity}%</p>
           <img className="card-img-center" src={`https://openweathermap.org/img/wn/${dataClima.weather[0].icon}@2x.png`} />
           <p>Min: {parseInt(dataClima?.main?.temp_min - difKelvin)} °C - Max: {parseInt(dataClima?.main?.temp_max - difKelvin)} °C </p>
-
-
-
-
-
-
         </div>
       )}
     </div>
